@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мой Сувенир — Музыкальный Альбом</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Montserrat', sans-serif;
+    background: #edf4fc;
+    color: #000000;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color: #240d0d;
+}
+
+a:hover{
+    color: #14100d;
+}
+
+
+/* HERO slide*/
+
+
+.ihero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    background:
+    linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.15)),
+    background-size:cover;
+    background-position:center;
+}
+
+.ihero-content{
+    max-width:900px;
+    padding:40px;
+    animation:fadeUp 1.5s ease;
+}
+
+.hero-slider{
+position:relative;
+height:100vh;
+overflow:hidden;
+background:#000;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0;
+transition:opacity 1s ease;
+}
+
+.slide.active{
+opacity:1;
+}
+
+.slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.prev,
+.next{
+border-radius:50px;
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,.2);
+border:none;
+color:#cccccc;
+font-size:28px;
+width:60px;
+height:60px;
+cursor:pointer;
+z-index:10;
+transition:.3s;
+
+}
+
+.prev:hover,
+.next:hover{
+background:rgba(0,0,0,.4);
+}
+
+.prev{
+left:20px;
+}
+
+.next{
+right:20px;
+}
+
+@media(max-width:768px){
+
+}
+
+
+/* HERO video*/
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.hero-video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width:900px;
+    padding:20px;
+}
+
+
+.album-title{
+    font-family:'Playfair Display', serif;
+    font-size:clamp(3rem,8vw,7rem);
+    color:#5ce6af;
+
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:1.3rem;
+    letter-spacing:3px;
+    color: #ffffff;
+    text-transform:uppercase;
+    opacity:.9;
+}
+
+.description{
+    max-width:700px;
+    margin:30px auto;
+    color: #ffffff;
+    line-height:1.8;
+    font-size:1.1rem;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:18px 40px;
+    border-radius:50px;
+    text-decoration:none;
+    color:#fff;
+    background:linear-gradient(45deg,#c21fd2,#ffcf73);
+    transition:.3s;
+    font-weight:600;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(255,208,116,.4);
+}
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    font-family:'Playfair Display', serif;
+    font-size:3rem;
+    text-align:center;
+    color: #431941;
+    margin-bottom:50px;
+}
+
+.about{
+    background: #ffffff;
+}
+
+.about p{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    line-height:2;
+    font-size:1.1rem;
+}
+
+
+.gallery{
+    background: #edf4fc;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.gallery-grid img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:15px;
+    transition:.4s;
+}
+
+.gallery-grid img:hover{
+    transform:scale(1.04);
+}
+
+.listen{
+    text-align:center;
+}
+
+.platforms{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.platform{
+    padding:18px 35px;
+    border:1px solid #54caa9;
+    border-radius:50px;
+    transition:.3s;
+}
+
+.platform:hover{
+    background:#abe8df;
+    color:#111;
+}
+
+.footer{
+    text-align:center;
+    padding:40px;
+    background:#0d0a08;
+    color:#b8bbc1;
+}
+
+.sun{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(circle,#ffcf73,#d78020);
+    filter:blur(50px);
+    opacity:.25;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:pulse 6s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.08);}
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* FAQ */
+
+.faq{
+    background: #ddeafa;
+}
+
+.faq-container{
+    max-width:900px;
+    margin:0 auto;
+}
+
+.faq-item{
+    margin-bottom:15px;
+    background: #ceddf0;
+    border-radius:12px;
+    overflow:hidden;
+    border-left: 4px solid #bc8ecf;
+}
+
+.faq-item summary{
+    cursor:pointer;
+    padding:22px 25px;
+    font-size:1.05rem;
+    font-weight:600;
+    list-style:none;
+    position:relative;
+}
+
+.faq-item summary::-webkit-details-marker{
+    display:none;
+}
+
+.faq-item summary::after{
+    content:"+";
+    position:absolute;
+    right:25px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:1.5rem;
+    color: #351a1a;
+}
+
+.faq-item[open] summary::after{
+    content:"−";
+}
+
+.faq-item p{
+    padding:0 25px 25px;
+    line-height:1.8;
+    color: #000000;
+}
+
+/* VIDEO GALLERY */
+
+.video-gallery{
+    background:var(--bg);
+}
+
+.video-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.video-grid video{
+    width:100%;
+    border-radius:15px;
+    background:black;
+}
+@media(max-width:768px){
+    .section-title{
+        font-size:2.3rem;
+    }
+
+    .track{
+        flex-direction:column;
+        gap:8px;
+    }
+}
+
+::selection {
+  background: #d264e447;
+  color: #000;
+}
+
+</style>
+</head>
+<body>
+
+<div class="hero-slider">
+
+    <div class="slide active">
+        <img src="photo1.jpg" alt="">
+    </div>
+
+    <div class="slide">
+        <img src="photo2.jpg" alt="">
+    </div>
+
+    <div class="slide">
+        <img src="photo3.jpg" alt="">
+    </div>
+	
+
+<header class="ihero">   
+
+    <div class="ihero-content">
+        <h1 class="album-title">Мой Сувенир</h1>
+
+        <p class="description">
+            Музыка воспоминаний, солнечных закатов,
+            нежности и любви. Каждая композиция —
+            маленький сувенир.
+        </p>
+
+        <a href="#listen" class="btn">Слушать альбом</a>
+    </div>
+</header>
+
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+
+</div>
+
+
+<section class="about">
+    <h2 class="section-title">Об Альбоме</h2>
+
+    <p>
+        «Мой Сувенир» — это путешествие через чувства,
+        воспоминания и романтические истории.
+        Тёплое звучание, атмосфера винтажной эстрады,
+        мягкие мелодии и искренние эмоции создают
+        особое настроение для каждого слушателя.
+    </p>
+</section>
+
+
+
+<section class="gallery">
+    <h2 class="section-title">Атмосфера Альбома</h2>
+
+    <div class="gallery-grid">
+
+        <img src="photo_1.jpg?auto=format&fit=crop&w=900&q=80">
+
+        <img src="photo_2.jpg?auto=format&fit=crop&w=900&q=80">
+
+        <img src="photo_3.jpg?auto=format&fit=crop&w=900&q=80">
+
+    </div>
+</section>
+
+
+<section class="faq">
+    <h2 class="section-title">Вопросы и ответы</h2>
+
+    <div class="faq-container">
+
+        <details class="faq-item">
+            <summary>Где можно послушать альбом?</summary>
+            <p>
+                Альбом доступен на Spotify, YouTube Music,
+                Apple Music, Deezer и других музыкальных площадках.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Можно ли скачать альбом?</summary>
+            <p>
+                Да, на поддерживаемых музыкальных сервисах
+                доступна возможность покупки и скачивания.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Сколько треков входит в альбом?</summary>
+            <p>
+                В стандартное издание входит несколько оригинальных
+                композиций. Полный список указан в разделе «Трек-лист».
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Будут ли новые релизы?</summary>
+            <p>
+                Следите за новостями и обновлениями на официальных
+                страницах проекта.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Как связаться с автором?</summary>
+            <p>
+                Используйте форму обратной связи или ссылки
+                на социальные сети внизу страницы.
+            </p>
+        </details>
+
+    </div>
+</section>
+
+
+<!-- ВИДЕОГАЛЕРЕЯ -->
+
+<section class="video-gallery">
+
+<h2 class="section-title">
+Видео Альбома
+</h2>
+
+<div class="video-grid">
+
+    <video controls>
+        <source src="gallery01.mp4" type="video/mp4">
+    </video>
+
+    <video controls>
+        <source src="gallery02.mp4" type="video/mp4">
+    </video>
+
+    <video controls>
+        <source src="gallery03.mp4" type="video/mp4">
+    </video>
+
+</div>
+
+</section>
+
+<!-- ПОДПИСКА -->
+
+<section class="listen" id="listen">
+    <h2 class="section-title">Слушайте Сейчас</h2>
+
+    <p>
+        Альбом доступен на всех популярных музыкальных площадках
+    </p>
+
+    <div class="platforms">
+        <a href="#" class="platform">Spotify</a>
+        <div class="platform">YouTube Music</div>
+        <div class="platform">Apple Music</div>
+        <div class="platform">Deezer</div>
+    </div>
+
+    <a href="#" class="btn" style="margin-top:40px;">
+        Открыть Альбом
+    </a>
+</section>
+
+<footer class="footer">
+    © 2026 • Мой Сувенир • Все права защищены
+</footer>
+
+<script>
+
+const slides=document.querySelectorAll(".slide");
+
+let current=0;
+
+function showSlide(index){
+
+slides.forEach(slide=>slide.classList.remove("active"));
+
+slides[index].classList.add("active");
+
+}
+
+document.querySelector(".next").onclick=()=>{
+
+current++;
+
+if(current>=slides.length){
+
+current=0;
+
+}
+
+showSlide(current);
+
+}
+
+document.querySelector(".prev").onclick=()=>{
+
+current--;
+
+if(current<0){
+
+current=slides.length-1;
+
+}
+
+showSlide(current);
+
+}
+
+setInterval(()=>{
+
+current++;
+
+if(current>=slides.length){
+
+current=0;
+
+}
+
+showSlide(current);
+
+},5000);
+
+</script>
+
+</body>
+</html>
