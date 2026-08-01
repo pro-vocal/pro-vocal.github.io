@@ -8,8 +8,581 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css">
+<style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Montserrat', sans-serif;
+    background: #f3f3f3;
+    color: #000000;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color: #240d0d;
+}
+
+a:hover{
+    color: #14100d;
+}
+
+
+/* HERO slide*/
+
+
+.ihero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    background:
+    linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.15)),
+    background-size:cover;
+    background-position:center;
+}
+
+.ihero-content{
+    max-width:900px;
+    padding:40px;
+    animation:fadeUp 1.5s ease;
+}
+
+.hero-slider{
+position:relative;
+height:100vh;
+overflow:hidden;
+background:#000;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0;
+transition:opacity 1s ease;
+}
+
+.slide.active{
+opacity:1;
+}
+
+.slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.prev,
+.next{
+border-radius:50px;
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,.2);
+border:none;
+color:#cccccc;
+font-size:28px;
+width:60px;
+height:60px;
+cursor:pointer;
+z-index:10;
+transition:.3s;
+
+}
+
+.prev:hover,
+.next:hover{
+background:rgba(0,0,0,.4);
+}
+
+.prev{
+left:20px;
+}
+
+.next{
+right:20px;
+}
+
+@media(max-width:768px){
+
+}
+
+/* HERO audio*/
+
+body{
+
+background:#f3f3f3;
+margin:0;
+
+}
+
+.player{
+
+width:100%;
+
+max-width:450px;
+
+margin:40px auto;
+
+background:white;
+
+border-radius:20px;
+
+/* Shadow box ----
+
+box-shadow:0 20px 40px rgba(0,0,0,.15);
+
+----*/
+
+padding:30px;
+
+text-align:center;
+
+}
+
+.cover{
+
+width:100%;
+
+max-width:260px;
+
+aspect-ratio:1;
+
+margin:auto;
+
+border-radius:20px;
+
+overflow:hidden;
+
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+}
+
+.cover img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+transform:scale(1);
+
+transition:transform 1.5s ease;
+
+}
+
+/* Во время воспроизведения KEN Burn */
+
+.cover img.play{
+
+animation:zoom 10s ease-in-out infinite alternate;
+
+}
+
+@keyframes zoom{
+
+0%{
+
+transform:scale(1) translate(0,0);
+
+}
+
+100%{
+
+transform:scale(1.15) translate(-1px,-6px);
+
+}
+
+}
+
+h2{
+
+margin:25px 0;
+
+}
+
+audio{
+
+width:100%;
+
+margin-bottom:25px;
+
+}
+
+#playlist{
+
+list-style:none;
+
+padding:0;
+
+}
+
+#playlist li{
+
+padding:15px;
+
+cursor:pointer;
+
+border-radius:8px;
+
+margin:6px 0;
+
+transition:.3s;
+
+}
+
+#playlist li:hover{
+
+background:#ececec;
+
+}
+
+#playlist li.active{
+
+background:#54caa9;
+
+color:white;
+
+font-weight:bold;
+
+}
+
+/* Плейлист ещё */
+
+.playlist-more{
+
+max-height:0;
+
+overflow:hidden;
+
+transition:max-height .6s ease;
+
+}
+
+.playlist-more.open{
+
+max-height:500px;
+
+}
+
+.more-btn{
+
+width:100%;
+
+margin-top:15px;
+
+padding:15px;
+
+border:none;
+
+border-radius:10px;
+
+background:#f6f6f6;
+
+color:#666;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.more-btn:hover{
+
+background:#ba5ccf;
+
+color:white;
+
+}
+
+.more-btn span{
+
+display:inline-block;
+
+transition:.35s;
+
+}
+
+
+/* HERO video*/
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.hero-video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width:900px;
+    padding:20px;
+}
+
+
+.album-title{
+    font-family:'Playfair Display', serif;
+    font-size:clamp(3rem,8vw,7rem);
+    color:#5ce6af;
+
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:1.3rem;
+    letter-spacing:3px;
+    color: #ffffff;
+    text-transform:uppercase;
+    opacity:.9;
+}
+
+.description{
+    max-width:700px;
+    margin:30px auto;
+    color: #ffffff;
+    line-height:1.8;
+    font-size:1.1rem;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:18px 40px;
+    border-radius:50px;
+    text-decoration:none;
+    color:#fff;
+    background:linear-gradient(45deg,#c21fd2,#ffcf73);
+    transition:.3s;
+    font-weight:600;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(255,208,116,.4);
+}
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    font-family:'Playfair Display', serif;
+    font-size:3rem;
+    text-align:center;
+    color: #431941;
+    margin-bottom:50px;
+}
+
+.about{
+    background: #ffffff;
+}
+
+.about p{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    line-height:2;
+    font-size:1.1rem;
+}
+
+
+.gallery{
+    background: #edeffc;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.gallery-grid img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:15px;
+    transition:.4s;
+}
+
+.gallery-grid img:hover{
+    transform:scale(1.04);
+}
+
+.listen{
+    text-align:center;
+}
+
+.platforms{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.platform{
+    padding:18px 35px;
+    border:1px solid #54caa9;
+    border-radius:50px;
+    transition:.3s;
+}
+
+.platform:hover{
+    background:#abe8df;
+    color:#111;
+}
+
+.footer{
+    text-align:center;
+    padding:40px;
+    background:#0d0a08;
+    color:#b8bbc1;
+}
+
+.sun{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(circle,#ffcf73,#d78020);
+    filter:blur(50px);
+    opacity:.25;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:pulse 6s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.08);}
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* FAQ */
+
+.faq{
+    background: #dcdef2;
+}
+
+.faq-container{
+    max-width:900px;
+    margin:0 auto;
+}
+
+.faq-item{
+    margin-bottom:15px;
+    background: #ced4f0;
+    border-radius:12px;
+    overflow:hidden;
+    border-left: 4px solid #bc8ecf;
+}
+
+.faq-item summary{
+    cursor:pointer;
+    padding:22px 25px;
+    font-size:1.05rem;
+    font-weight:600;
+    list-style:none;
+    position:relative;
+}
+
+.faq-item summary::-webkit-details-marker{
+    display:none;
+}
+
+.faq-item summary::after{
+    content:"+";
+    position:absolute;
+    right:25px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:1.5rem;
+    color: #351a1a;
+}
+
+.faq-item[open] summary::after{
+    content:"−";
+}
+
+.faq-item p{
+    padding:0 25px 25px;
+    line-height:1.8;
+    color: #000000;
+}
+
+/* VIDEO GALLERY */
+
+.video-gallery{
+    background:var(--bg);
+}
+
+.video-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.video-grid video{
+    width:100%;
+    border-radius:15px;
+    background:black;
+}
+@media(max-width:768px){
+    .section-title{
+        font-size:2.3rem;
+    }
+
+    .track{
+        flex-direction:column;
+        gap:8px;
+    }
+}
+
+::selection {
+  background: #d264e447;
+  color: #000;
+}
+
+</style>
 </head>
 <body>
 
@@ -61,6 +634,7 @@
     </p>
 </section>
 
+
 <div class="player" id="player">
 
 <div class="cover">
@@ -94,6 +668,142 @@
 
 </div>
 
+<script>
+
+function initPlayer(){
+
+const songs=[
+
+{
+title:"Blue Caffe",
+file:"song1.mp3",
+cover:"cover1.jpg"
+},
+
+{
+title:"Замок на песке",
+file:"song2.mp3",
+cover:"cover2.jpg"
+},
+
+{
+title:"На заре",
+file:"song3.mp3",
+cover:"cover3.jpg"
+},
+
+{
+title:"Небо на ладони",
+file:"song4.mp3",
+cover:"cover4.jpg"
+},
+
+{
+title:"Мой Сувенир",
+file:"song5.mp3",
+cover:"cover5.jpg"
+},
+
+{
+title:"Песня 6",
+file:"song6.mp3",
+cover:"cover6.jpg"
+},
+{
+title:"Песня 7",
+file:"song7.mp3",
+cover:"cover7.jpg"
+},
+{
+title:"Песня 8",
+file:"song8.mp3",
+cover:"cover8.jpg"
+},
+
+
+];
+
+const audio=document.getElementById("audio");
+const cover=document.getElementById("cover");
+const title=document.getElementById("title");
+const list=document.querySelectorAll("#playlist li");
+
+let current=0;
+
+function loadSong(i){
+
+current=i;
+
+audio.src=songs[i].file;
+
+cover.src=songs[i].cover;
+
+title.innerHTML=songs[i].title;
+
+list.forEach(li=>li.classList.remove("active"));
+
+list[i].classList.add("active");
+
+}
+
+list.forEach((li,i)=>{
+
+li.onclick=()=>{
+
+loadSong(i);
+
+audio.play();
+
+}
+
+});
+
+audio.onplay = () => {
+    cover.classList.add("play");
+};
+
+audio.onpause = () => {
+    cover.classList.remove("play");
+};
+
+audio.onended = () => {
+    cover.classList.remove("play");
+
+    current++;
+
+    if(current >= songs.length){
+        current = 0;
+    }
+
+    loadSong(current);
+    audio.play();
+};
+
+}
+
+const btn=document.getElementById("togglePlaylist");
+const list=document.getElementById("playlist2");
+
+btn.onclick=function(){
+
+list.classList.toggle("open");
+
+if(list.classList.contains("open")){
+
+btn.innerHTML="▲ Свернуть";
+
+}else{
+
+btn.innerHTML="▼ Слушать ещё";
+
+}
+
+}
+
+
+initPlayer();
+
+</script>
 
 <section class="gallery">
     <h2 class="section-title">Атмосфера Альбома</h2>
@@ -185,24 +895,6 @@
 
 </section>
 
-<section>
-
-<div id="mc-container"></div>
-<script type="text/javascript">
-cackle_widget = window.cackle_widget || [];
-cackle_widget.push({widget: 'Comment', id: 17215});
-(function() {
-    var mc = document.createElement('script');
-    mc.type = 'text/javascript';
-    mc.async = true;
-    mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-})();
-</script>
-<a id="mc-link" href="https://cackle.me">Комментарии для сайта <b style="color:#4FA3DA">Cackl</b><b style="color:#F65077">e</b></a>
-
-</section>
-
 <!-- ПОДПИСКА -->
 
 <section class="listen" id="listen">
@@ -228,8 +920,71 @@ cackle_widget.push({widget: 'Comment', id: 17215});
     © 2026 • Мой Сувенир • Все права защищены
 </footer>
 
+<script>
 
-<script src="js/script.js"></script>
+function initSlider(){
+
+const slides=document.querySelectorAll(".slide");
+
+let current=0;
+
+function showSlide(index){
+
+slides.forEach(slide=>slide.classList.remove("active"));
+
+slides[index].classList.add("active");
+
+}
+
+document.querySelector(".next").onclick=()=>{
+
+current++;
+
+if(current>=slides.length){
+
+current=0;
+
+}
+
+showSlide(current);
+
+}
+
+document.querySelector(".prev").onclick=()=>{
+
+current--;
+
+if(current<0){
+
+current=slides.length-1;
+
+}
+
+showSlide(current);
+
+}
+
+setInterval(()=>{
+
+current++;
+
+if(current>=slides.length){
+
+current=0;
+
+}
+
+showSlide(current);
+
+},5000);
+
+}
+
+initSlider();
+
+</script>
+
+
 
 </body>
 </html>
