@@ -8,382 +8,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-<style>
+<link rel="stylesheet" href="css/style.css">
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:'Montserrat', sans-serif;
-    background: #edf4fc;
-    color: #000000;
-    overflow-x:hidden;
-}
-
-a{
-    text-decoration:none;
-    color: #240d0d;
-}
-
-a:hover{
-    color: #14100d;
-}
-
-
-/* HERO slide*/
-
-
-.ihero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    position:relative;
-    background:
-    linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.15)),
-    background-size:cover;
-    background-position:center;
-}
-
-.ihero-content{
-    max-width:900px;
-    padding:40px;
-    animation:fadeUp 1.5s ease;
-}
-
-.hero-slider{
-position:relative;
-height:100vh;
-overflow:hidden;
-background:#000;
-}
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-opacity:0;
-transition:opacity 1s ease;
-}
-
-.slide.active{
-opacity:1;
-}
-
-.slide img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.prev,
-.next{
-border-radius:50px;
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,.2);
-border:none;
-color:#cccccc;
-font-size:28px;
-width:60px;
-height:60px;
-cursor:pointer;
-z-index:10;
-transition:.3s;
-
-}
-
-.prev:hover,
-.next:hover{
-background:rgba(0,0,0,.4);
-}
-
-.prev{
-left:20px;
-}
-
-.next{
-right:20px;
-}
-
-@media(max-width:768px){
-
-}
-
-
-/* HERO video*/
-
-.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.hero-video{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-    text-align:center;
-    max-width:900px;
-    padding:20px;
-}
-
-
-.album-title{
-    font-family:'Playfair Display', serif;
-    font-size:clamp(3rem,8vw,7rem);
-    color:#5ce6af;
-
-}
-
-.subtitle{
-    margin-top:15px;
-    font-size:1.3rem;
-    letter-spacing:3px;
-    color: #ffffff;
-    text-transform:uppercase;
-    opacity:.9;
-}
-
-.description{
-    max-width:700px;
-    margin:30px auto;
-    color: #ffffff;
-    line-height:1.8;
-    font-size:1.1rem;
-}
-
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:18px 40px;
-    border-radius:50px;
-    text-decoration:none;
-    color:#fff;
-    background:linear-gradient(45deg,#c21fd2,#ffcf73);
-    transition:.3s;
-    font-weight:600;
-}
-
-.btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(255,208,116,.4);
-}
-
-section{
-    padding:90px 8%;
-}
-
-.section-title{
-    font-family:'Playfair Display', serif;
-    font-size:3rem;
-    text-align:center;
-    color: #431941;
-    margin-bottom:50px;
-}
-
-.about{
-    background: #ffffff;
-}
-
-.about p{
-    max-width:900px;
-    margin:auto;
-    text-align:center;
-    line-height:2;
-    font-size:1.1rem;
-}
-
-
-.gallery{
-    background: #edf4fc;
-}
-
-.gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
-
-.gallery-grid img{
-    width:100%;
-    height:300px;
-    object-fit:cover;
-    border-radius:15px;
-    transition:.4s;
-}
-
-.gallery-grid img:hover{
-    transform:scale(1.04);
-}
-
-.listen{
-    text-align:center;
-}
-
-.platforms{
-    margin-top:40px;
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.platform{
-    padding:18px 35px;
-    border:1px solid #54caa9;
-    border-radius:50px;
-    transition:.3s;
-}
-
-.platform:hover{
-    background:#abe8df;
-    color:#111;
-}
-
-.footer{
-    text-align:center;
-    padding:40px;
-    background:#0d0a08;
-    color:#b8bbc1;
-}
-
-.sun{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    background:radial-gradient(circle,#ffcf73,#d78020);
-    filter:blur(50px);
-    opacity:.25;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    animation:pulse 6s infinite;
-}
-
-@keyframes pulse{
-    0%,100%{transform:translate(-50%,-50%) scale(1);}
-    50%{transform:translate(-50%,-50%) scale(1.08);}
-}
-
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(50px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* FAQ */
-
-.faq{
-    background: #ddeafa;
-}
-
-.faq-container{
-    max-width:900px;
-    margin:0 auto;
-}
-
-.faq-item{
-    margin-bottom:15px;
-    background: #ceddf0;
-    border-radius:12px;
-    overflow:hidden;
-    border-left: 4px solid #bc8ecf;
-}
-
-.faq-item summary{
-    cursor:pointer;
-    padding:22px 25px;
-    font-size:1.05rem;
-    font-weight:600;
-    list-style:none;
-    position:relative;
-}
-
-.faq-item summary::-webkit-details-marker{
-    display:none;
-}
-
-.faq-item summary::after{
-    content:"+";
-    position:absolute;
-    right:25px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:1.5rem;
-    color: #351a1a;
-}
-
-.faq-item[open] summary::after{
-    content:"−";
-}
-
-.faq-item p{
-    padding:0 25px 25px;
-    line-height:1.8;
-    color: #000000;
-}
-
-/* VIDEO GALLERY */
-
-.video-gallery{
-    background:var(--bg);
-}
-
-.video-grid{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(300px,1fr));
-    gap:25px;
-}
-
-.video-grid video{
-    width:100%;
-    border-radius:15px;
-    background:black;
-}
-@media(max-width:768px){
-    .section-title{
-        font-size:2.3rem;
-    }
-
-    .track{
-        flex-direction:column;
-        gap:8px;
-    }
-}
-
-::selection {
-  background: #d264e447;
-  color: #000;
-}
-
-</style>
 </head>
 <body>
 
@@ -413,7 +39,7 @@ section{
             маленький сувенир.
         </p>
 
-        <a href="#listen" class="btn">Слушать альбом</a>
+        <a href="#player" class="btn">Слушать альбом</a>
     </div>
 </header>
 
@@ -435,6 +61,38 @@ section{
     </p>
 </section>
 
+<div class="player" id="player">
+
+<div class="cover">
+<img id="cover" src="cover1.jpg">
+</div>
+
+<h2 id="title">Blue Caffe</h2>
+
+<audio id="audio" controls></audio>
+
+<ul id="playlist">
+
+<li class="active">Blue Caffe</li>
+<li>Замок на песке</li>
+<li>На заре</li>
+<li>Небо на ладони</li>
+<li>Мой Сувенир</li>
+
+<ul id="playlist2" class="playlist-more">
+
+<li>Песня 6</li>
+<li>Песня 7</li>
+<li>Песня 8</li>
+
+</ul>
+
+<button id="togglePlaylist" class="more-btn">
+▼ Слушать ещё
+</button>
+</ul>
+
+</div>
 
 
 <section class="gallery">
@@ -552,63 +210,8 @@ section{
     © 2026 • Мой Сувенир • Все права защищены
 </footer>
 
-<script>
 
-const slides=document.querySelectorAll(".slide");
-
-let current=0;
-
-function showSlide(index){
-
-slides.forEach(slide=>slide.classList.remove("active"));
-
-slides[index].classList.add("active");
-
-}
-
-document.querySelector(".next").onclick=()=>{
-
-current++;
-
-if(current>=slides.length){
-
-current=0;
-
-}
-
-showSlide(current);
-
-}
-
-document.querySelector(".prev").onclick=()=>{
-
-current--;
-
-if(current<0){
-
-current=slides.length-1;
-
-}
-
-showSlide(current);
-
-}
-
-setInterval(()=>{
-
-current++;
-
-if(current>=slides.length){
-
-current=0;
-
-}
-
-showSlide(current);
-
-},5000);
-
-</script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
