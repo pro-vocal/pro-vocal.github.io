@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Гостевая книга</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:#f4f6f8;
+
+font-family:Montserrat,sans-serif;
+
+padding:40px 20px;
+
+color:#333;
+
+}
+
+.container{
+
+max-width:850px;
+
+margin:auto;
+
+}
+
+h1{
+
+text-align:center;
+
+font-size:42px;
+
+margin-bottom:10px;
+
+color:#2b2b2b;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#777;
+
+margin-bottom:40px;
+
+}
+
+.form{
+
+background:white;
+
+padding:30px;
+
+border-radius:18px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+margin-bottom:40px;
+
+}
+
+input{
+
+width:100%;
+
+padding:15px;
+
+font-size:16px;
+
+margin-bottom:18px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+outline:none;
+
+transition:.3s;
+
+font-family:inherit;
+
+}
+
+input:focus{
+
+border-color:#d4af37;
+
+}
+
+textarea{
+
+width:100%;
+
+height:150px;
+
+resize:none;
+
+padding:15px;
+
+font-size:16px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+outline:none;
+
+transition:.3s;
+
+font-family:inherit;
+
+margin-bottom:20px;
+
+}
+
+textarea:focus{
+
+border-color:#d4af37;
+
+}
+
+button{
+
+background:#d4af37;
+
+color:white;
+
+border:none;
+
+padding:16px 35px;
+
+font-size:16px;
+
+cursor:pointer;
+
+border-radius:12px;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#be9728;
+
+transform:translateY(-2px);
+
+}
+
+#messages{
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.message{
+
+background:white;
+
+border-radius:16px;
+
+padding:22px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+animation:show .4s;
+
+}
+
+.message-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:12px;
+
+}
+
+.name{
+
+font-weight:700;
+
+font-size:18px;
+
+color:#222;
+
+}
+
+.date{
+
+font-size:13px;
+
+color:#888;
+
+}
+
+.text{
+
+line-height:1.7;
+
+font-size:16px;
+
+word-wrap:break-word;
+
+}
+
+.empty{
+
+text-align:center;
+
+padding:60px;
+
+color:#999;
+
+font-size:18px;
+
+}
+
+.loader{
+
+display:none;
+
+margin-top:20px;
+
+color:#666;
+
+}
+
+@keyframes show{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+@media(max-width:700px){
+
+body{
+
+padding:20px 12px;
+
+}
+
+h1{
+
+font-size:32px;
+
+}
+
+.form{
+
+padding:20px;
+
+}
+
+.message{
+
+padding:18px;
+
+}
+
+.message-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:5px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Гостевая книга</h1>
+
+<p class="subtitle">
+
+Оставьте несколько теплых слов ❤️
+
+</p>
+
+<div class="form">
+
+<input
+id="name"
+type="text"
+placeholder="Ваше имя">
+
+<textarea
+id="message"
+placeholder="Ваш отзыв..."></textarea>
+
+<button id="send">
+
+Отправить сообщение
+
+</button>
+
+<div class="loader" id="loader">
+
+Отправка...
+
+</div>
+
+</div>
+
+<div id="messages">
+
+<div class="empty">
+
+Пока нет сообщений.
+
+Будьте первым!
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { createClient }
+
+from "https://esm.sh/@supabase/supabase-js@2";
+
+const SUPABASE_URL="https://toiwdnebeyfpnkhmrvce.supabase.co";
+
+const SUPABASE_KEY="sb_publishable_DI-50ddKKy-xt8tfmNDlbg_Xc5u_VSD";
+
+const supabase=createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+const nameInput=document.getElementById("name");
+
+const messageInput=document.getElementById("message");
+
+const sendButton=document.getElementById("send");
+
+const messages=document.getElementById("messages");
+
+const loader=document.getElementById("loader");
+
+
+
+// загрузка сообщений
+
+async function loadMessages(){
+
+const {data,error}=await supabase
+
+.from("comments")
+
+.select("*")
+
+.order("created_at",{ascending:false});
+
+if(error){
+
+console.error(error);
+
+return;
+
+}
+
+messages.innerHTML="";
+
+if(data.length===0){
+
+messages.innerHTML=`
+
+<div class="empty">
+
+Пока нет сообщений.
+
+Будьте первым!
+
+</div>
+
+`;
+
+return;
+
+}
+
+data.forEach(item=>{
+
+const date=new Date(item.created_at);
+
+messages.innerHTML+=`
+
+<div class="message">
+
+<div class="message-header">
+
+<div class="name">
+
+${escapeHTML(item.name)}
+
+</div>
+
+<div class="date">
+
+${date.toLocaleString("ru-RU")}
+
+</div>
+
+</div>
+
+<div class="text">
+
+${escapeHTML(item.message)}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+
+// отправка сообщения
+
+async function sendMessage(){
+
+const name=nameInput.value.trim();
+
+const text=messageInput.value.trim();
+
+if(name===""){
+
+alert("Введите имя");
+
+return;
+
+}
+
+if(text===""){
+
+alert("Введите сообщение");
+
+return;
+
+}
+
+loader.style.display="block";
+
+sendButton.disabled=true;
+
+const {error}=await supabase
+
+.from("comments")
+
+.insert([{
+
+name:name,
+
+message:text
+
+}]);
+
+loader.style.display="none";
+
+sendButton.disabled=false;
+
+if(error){
+
+alert("Ошибка отправки");
+
+console.error(error);
+
+return;
+
+}
+
+nameInput.value="";
+
+messageInput.value="";
+
+}
+
+
+
+// защита от HTML
+
+function escapeHTML(str){
+
+return str
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+// кнопка
+
+sendButton.addEventListener(
+
+"click",
+
+sendMessage
+
+);
+
+
+
+// обновление в реальном времени
+
+supabase
+
+.channel("comments-channel")
+
+.on(
+
+"postgres_changes",
+
+{
+
+event:"*",
+
+schema:"public",
+
+table:"comments"
+
+},
+
+payload=>{
+
+loadMessages();
+
+}
+
+)
+
+.subscribe();
+
+
+
+// первая загрузка
+
+loadMessages();
+
+</script>
+
+</body>
+</html>
